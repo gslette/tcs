@@ -1,0 +1,55 @@
+<div class="main">
+  <form>
+    <br/>
+    <h1>Target Case Study</h1>
+    <h2>Next Trip</h2>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Select a Route</mat-label>
+        <mat-select [(ngModel)]="selectedRoute" name="route">
+          <mat-option
+            *ngFor="let route of routes"
+            [value]="route.route_id"
+            (onSelectionChange)="onRouteSelect($event)"
+          >
+            {{ route.route_label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Select a Direction</mat-label>
+        <mat-select [(ngModel)]="selectedDirection" name="direction">
+          <mat-option
+            *ngFor="let direction of directions"
+            [value]="direction.direction_id"
+            (onSelectionChange)="onDirectionSelect($event)"
+          >
+            {{ direction.direction_name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div class="table">
+  <mat-card>
+    <div class="row">
+      <table mat-table [dataSource]="stops">
+        <ng-container matColumnDef="stopCode">
+          <th mat-header-cell *matHeaderCellDef>Stop Code</th>
+          <td mat-cell *matCellDef="let element">{{ element.place_code }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+      </table>
+    </div>
+  </mat-card>
+</div>
